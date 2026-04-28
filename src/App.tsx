@@ -12,7 +12,8 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const GEMINI_API_KEY = typeof process !== 'undefined' ? (process.env.GEMINI_API_KEY || "") : "";
+const ai = GEMINI_API_KEY ? new GoogleGenAI({ apiKey: GEMINI_API_KEY }) : null;
 
 const DEFAULT_HTML = `<div class="container">
   <h1>Hello, World!</h1>
@@ -91,6 +92,10 @@ export default function App() {
   }, [html, css, js]);
 
   const generateWithAI = async () => {
+    if (!ai) {
+      alert("AI feature is currently unavailable (API Key missing).");
+      return;
+    }
     if (!aiPrompt.trim()) return;
     setIsGenerating(true);
     try {
