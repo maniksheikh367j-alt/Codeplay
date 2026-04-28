@@ -1,0 +1,44 @@
+{
+  "entities": {
+    "AppSetting": {
+      "title": "Application Settings",
+      "description": "Global configuration for theme, language, and AI metadata.",
+      "type": "object",
+      "properties": {
+        "appName": { "type": "string" },
+        "appDescription": { "type": "string" },
+        "theme": { "type": "string", "enum": ["dark", "neon", "premium"] },
+        "language": { "type": "string", "enum": ["bn", "en", "hi", "ur"] },
+        "aiConfig": {
+          "type": "object",
+          "properties": {
+            "model": { "type": "string" },
+            "systemPrompt": { "type": "string" }
+          }
+        },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "AdminProfile": {
+      "title": "Admin Profile",
+      "description": "User profile with admin privileges.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin"] }
+      },
+      "required": ["uid", "email", "role"]
+    }
+  },
+  "firestore": {
+    "/settings/global": {
+      "schema": "AppSetting",
+      "description": "Main application configuration."
+    },
+    "/admins/{uid}": {
+      "schema": "AdminProfile",
+      "description": "Authorized admin users."
+    }
+  }
+}

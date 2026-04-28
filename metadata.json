@@ -1,0 +1,6 @@
+{
+  "name": "Live Code Playground",
+  "description": "A beginner-friendly live coding environment with real-time HTML/CSS/JS preview and status indicator.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
